@@ -1,70 +1,273 @@
-# Getting Started with Create React App
+# 🌱 Krishi Helpmate – AI-Powered Smart Farming Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Krishi Helpmate is a full-stack intelligent agriculture platform that leverages **AI, satellite imagery, and real-time data** to assist farmers in making informed decisions.
 
-## Available Scripts
+It integrates **NDVI analysis, plant disease detection, weather intelligence, and an AI chatbot assistant** into a single unified system.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🌿 NDVI Crop Health Analysis
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Draw polygons on an interactive map
+* Fetch satellite imagery using Google Earth Engine
+* Calculate NDVI values (min, max, mean)
+* Visualize vegetation health using overlays
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔍 Plant Disease Detection
 
-### `npm run build`
+* Upload plant images (drag & drop supported)
+* CNN-based deep learning model for classification
+* Returns:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  * Disease name
+  * Confidence score
+  * Scientific classification
+  * Health status
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🌦️ Weather Forecasting + Smart Farming Tips
 
-### `npm run eject`
+* Real-time weather data using OpenWeatherMap API
+* 5-day forecast
+* Intelligent farming suggestions based on:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  * Temperature
+  * Humidity
+  * Rainfall
+  * Wind conditions
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🤖 AI Farming Assistant (Chatbot)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Powered by LLM (Groq + LangChain)
+* Provides:
 
-## Learn More
+  * Crop management advice
+  * Pest control strategies
+  * Agricultural best practices
+* Maintains short conversational context
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🧠 Plant Disease Detection Model
 
-### Code Splitting
+### 📊 Dataset
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* **Dataset:** New Plant Diseases Dataset (Kaggle)
+* ~87,000 RGB images of crop leaves
+* 38 classes (healthy + diseased across multiple crops)
+* 80/20 train-validation split
+* Created using offline augmentation from PlantVillage dataset
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 🏗️ Model Architecture
 
-### Making a Progressive Web App
+| Component    | Details                          |
+| ------------ | -------------------------------- |
+| Input Size   | 128 × 128 × 3                    |
+| Architecture | Sequential CNN                   |
+| Conv Layers  | 3 layers (32 → 64 → 128 filters) |
+| Dense Layer  | 128 units                        |
+| Dropout      | 0.5                              |
+| Output       | 38-class Softmax                 |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+### ⚙️ Training Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Parameter     | Value                                         |
+| ------------- | --------------------------------------------- |
+| Optimizer     | Adam                                          |
+| Loss Function | Categorical Crossentropy                      |
+| Epochs        | 10                                            |
+| Batch Size    | 32                                            |
+| Augmentation  | Rotation, Shift, Shear, Zoom, Horizontal Flip |
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 📈 Model Performance
 
-### `npm run build` fails to minify
+* **Validation Accuracy:** ~82%
+* Optimized for real-time inference
+* Capable of identifying multiple crop diseases and healthy plants
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+### 🔄 Inference Pipeline
+
+1. User uploads plant image
+2. Image resized to 128×128
+3. Pixel normalization applied
+4. CNN model predicts class probabilities
+5. API returns structured result
+
+---
+
+## 🧠 Tech Stack
+
+### Frontend
+
+* React.js
+* Tailwind CSS
+* React Leaflet (Maps)
+* Leaflet Draw
+
+### Backend
+
+* FastAPI
+* Python
+
+### AI / ML
+
+* TensorFlow / Keras (CNN Model)
+* Google Earth Engine (NDVI Analysis)
+* LangChain + Groq (LLM Chatbot)
+
+### APIs
+
+* OpenWeatherMap API
+* OpenStreetMap (Geocoding)
+
+---
+
+## 📁 Project Structure
+
+```bash
+frontend/
+  ├── pages/
+  │   ├── Dashboard.js
+  │   ├── NDVI.js
+  │   ├── Disease.js
+  │   ├── Weather.js
+  │   └── Chatbot.js
+
+backend/
+  ├── main.py
+  ├── routers/
+  │   ├── gee_ndvi.py
+  │   ├── disease.py
+  │   ├── weather.py
+  │   └── ndvi.py
+  ├── model/
+  │   ├── Plant_Disease_CNN_model.h5
+  │   └── class_indices.json
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/your-username/krishi-helpmate.git
+cd krishi-helpmate
+```
+
+---
+
+### 2️⃣ Backend Setup (FastAPI)
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+Create `.env` file:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+Run backend:
+
+```bash
+uvicorn main:app --reload
+```
+
+Backend URL:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+### 3️⃣ Frontend Setup (React)
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Frontend URL:
+
+```
+http://localhost:3000
+```
+
+---
+
+## ⚠️ Important Notes
+
+* Backend must be running before frontend
+* Uses local API (`127.0.0.1`)
+* Configure:
+
+  * OpenWeatherMap API key
+  * Groq API key
+  * Google Earth Engine authentication:
+
+    ```bash
+    earthengine authenticate
+    ```
+
+---
+
+## 📊 Key Highlights
+
+* Full-stack AI application (React + FastAPI)
+* Integration of:
+
+  * Deep Learning (CNN)
+  * Remote Sensing (NDVI)
+  * LLM (Chatbot)
+* Interactive geospatial visualization
+* Real-world agriculture-focused solution
+
+---
+
+## 🔮 Future Improvements
+
+* Dynamic NDVI date range (real-time updates)
+* Deployment (AWS / Docker / Vercel)
+* Authentication system
+* Database integration
+* Model improvements using transfer learning
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+Feel free to fork the repository and submit pull requests.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+Built as a real-world AI-powered agriculture solution combining machine learning, geospatial data, and intelligent systems.
